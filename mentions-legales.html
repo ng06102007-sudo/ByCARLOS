@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mentions légales — BYCARLOS</title>
+<meta name="robots" content="noindex">
+<style>
+  /* same type as the homepage receipt */
+  @font-face {
+    font-family: "NHG Text 75";
+    src: url("font/Neue%20Haas%20Grotesk/NHaasGroteskTXPro-75Bd.woff2") format("woff2"),
+         url("font/Neue%20Haas%20Grotesk/NHaasGroteskTXPro-75Bd.otf") format("opentype"),
+         url("font/Neue%20Haas%20Grotesk/NHaasGroteskTXPro-75Bd.ttf") format("truetype"),
+         local("NHaasGroteskTXPro-75Bd"), local("Neue Haas Grotesk Text Pro 75 Bold"),
+         local("NeueHaasGroteskText Pro 75 Bold"), local("Neue Haas Grotesk Text Pro Bold");
+    font-weight: 700; font-display: swap;
+  }
+  @font-face {
+    font-family: "Helv LT";
+    src: url("font/Helvetica%20LT%20Pro/HelveticaLTPro-Light.woff2") format("woff2"),
+         url("font/Helvetica%20LT%20Pro/HelveticaLTPro-Light.otf") format("opentype"),
+         local("HelveticaLTPro-Light"), local("Helvetica LT Pro Light"), local("Helvetica-Light"), local("Helvetica Light");
+    font-weight: 300; font-display: swap;
+  }
+
+  :root { --ink: #fff; --faded: rgba(255,255,255,.78); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* old-school pixel cursors, black with a white outline (media/curseur retro … noir): arrow everywhere, pointing hand on links.
+     Only url() and -webkit-image-set(): Safari ignores cursors given with the unprefixed image-set(). */
+  html, body, * { cursor: url("media/curseur%20retro%20fleche%20noir.png") 0 0, auto;
+    cursor: -webkit-image-set(url("media/curseur%20retro%20fleche%20noir.png") 1x, url("media/curseur%20retro%20fleche%20noir@2x.png") 2x) 0 0, auto; }
+  a, a * { cursor: url("media/curseur%20retro%20main%20noir.png") 9 1, pointer;
+    cursor: -webkit-image-set(url("media/curseur%20retro%20main%20noir.png") 1x, url("media/curseur%20retro%20main%20noir@2x.png") 2x) 9 1, pointer; }
+  /* the background's first frame, darkened a little so long text stays readable */
+  html { background: #05070d url("media/arriere%20plan%20-%20poster.png") center / cover no-repeat fixed; }
+  html, body { min-height: 100%; color: var(--ink); }
+  body { overflow-x: hidden; }
+  .veil { position: fixed; inset: 0; z-index: 0; background: rgba(5,7,13,.5); pointer-events: none; }
+  .grain { position: fixed; inset: -50%; width: 200%; height: 200%; z-index: 1; pointer-events: none;
+    background-size: 220px 220px; opacity: .55; mix-blend-mode: overlay; animation: grain .55s steps(1) infinite; }
+  @keyframes grain {
+    0%   { transform: translate(0, 0); }       12% { transform: translate(-7%, 4%); }
+    25%  { transform: translate(5%, -9%); }    37% { transform: translate(-11%, -3%); }
+    50%  { transform: translate(9%, 7%); }     62% { transform: translate(-4%, 11%); }
+    75%  { transform: translate(12%, -5%); }   87% { transform: translate(-9%, 9%); }
+  }
+
+  main { position: relative; z-index: 2; display: flex; justify-content: center; padding: 48px 16px 64px; }
+  .receipt { width: 30em; max-width: calc(100vw - 32px);
+    font-family: "Helv LT", "Helvetica LT Pro", Helvetica, Arial, sans-serif; font-weight: 300;
+    font-size: clamp(13px, 3.6vw, 15px); line-height: 1.5; letter-spacing: .01em;
+    text-shadow: 0 1px 2px rgba(0,0,0,.45), 0 0 14px rgba(0,0,0,.25);
+    clip-path: inset(0 0 0 0); animation: print 1.2s steps(24, end) both; }
+  @keyframes print { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+  @media (prefers-reduced-motion: reduce) { .receipt, .grain { animation: none; } }
+
+  .muted { color: var(--faded); }
+  .upper { text-transform: uppercase; letter-spacing: .02em; }
+  .row { display: flex; justify-content: space-between; gap: 1ch; }
+  .rule { overflow: hidden; white-space: nowrap; color: var(--faded); margin: .6em 0; letter-spacing: 0; }
+  .rule::before { content: "--------------------------------------------------------------------------------"; }
+  .rule.double::before { content: "================================================================================"; }
+
+  .title { font-family: "NHG Text 75", "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700; line-height: 1; text-align: center; white-space: nowrap; text-transform: uppercase;
+    transform: scaleY(1.35); margin: .35em 0 .45em; font-size: 2.6em; }   /* size set by the script */
+  .sub { display: flex; flex-direction: column; align-items: center; margin-bottom: .4em; }
+  .sub span { display: block; line-height: 1.15; transform: scaleY(1.35); text-transform: uppercase; letter-spacing: -.01em; }
+
+  section { margin: 1.1em 0; }
+  h2 { font-weight: 300; font-size: 1em; text-transform: uppercase; letter-spacing: .02em;
+    display: grid; grid-template-columns: 3.2ch 1fr; margin-bottom: .35em; }
+  h2 .qty { color: var(--faded); }
+  section p, section dl { padding-left: 3.2ch; }
+  section p + p { margin-top: .5em; }
+  dl { display: grid; grid-template-columns: auto 1fr; column-gap: 1.5ch; row-gap: .15em; }
+  dt { color: var(--faded); }
+  a { color: inherit; text-underline-offset: .2em; }
+  a:hover, a:focus-visible { color: #000; text-shadow: none; outline: none; }
+
+  /* the stretched title overhangs the line above: let clicks pass through it, and keep the link on top */
+  .title, .sub { pointer-events: none; }
+  .back { position: relative; z-index: 1; }
+  .back { display: inline-block; text-decoration: none; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 1em; }
+  .center { text-align: center; }
+  .small { font-size: .82em; letter-spacing: .12em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="grain" id="grain" aria-hidden="true"></div>
+
+  <main>
+    <article class="receipt">
+      <a class="back" href="index.html">← Back to the receipt</a>
+
+      <h1 class="title">Mentions légales</h1>
+      <p class="sub"><span>BYCARLOS</span><span class="muted">Legal notice</span></p>
+
+      <div class="rule" aria-hidden="true"></div>
+      <div class="row upper"><span>Dernière mise à jour</span><span>Novembre 2026</span></div>
+      <div class="rule" aria-hidden="true"></div>
+
+      <section>
+        <h2><span class="qty">01</span><span>Éditeur du site</span></h2>
+        <p>Ce site est un portfolio personnel, non commercial, édité par&nbsp;:</p>
+        <dl style="margin-top:.5em">
+          <dt>Nom</dt><dd>Nathan Garcia</dd>
+          <dt>Statut</dt><dd>Particulier</dd>
+          <dt>Contact</dt><dd><a href="mailto:nathan.garcia30300@icloud.com?subject=Portfolio%20BYCARLOS">nathan.garcia30300@icloud.com</a></dd>
+        </dl>
+        <p style="margin-top:.5em" class="muted">Conformément à l’article 6, III-2 de la loi n°&nbsp;2004-575 du 21&nbsp;juin 2004 (LCEN), l’éditeur, personne physique non professionnelle, a communiqué ses coordonnées complètes à l’hébergeur.</p>
+      </section>
+
+      <section>
+        <h2><span class="qty">02</span><span>Directeur de la publication</span></h2>
+        <p>Nathan Garcia</p>
+      </section>
+
+      <section>
+        <h2><span class="qty">03</span><span>Hébergement</span></h2>
+        <dl>
+          <dt>Hébergeur</dt><dd>OVH SAS (OVHcloud)</dd>
+          <dt>Adresse</dt><dd>2 rue Kellermann, 59100 Roubaix, France</dd>
+          <dt>Téléphone</dt><dd>+33 9 72 10 10 07</dd>
+          <dt>Site</dt><dd><a href="https://www.ovhcloud.com" rel="noopener">ovhcloud.com</a></dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2><span class="qty">04</span><span>Propriété intellectuelle</span></h2>
+        <p>L’ensemble des contenus présents sur ce site (créations, projets, images, vidéos, textes, mise en page) est la propriété de Nathan Garcia, sauf mention contraire.</p>
+        <p>Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite (articles L.&nbsp;122-4 et L.&nbsp;335-2 du Code de la propriété intellectuelle).</p>
+        <p>Les polices de caractères et éventuels éléments de tiers restent la propriété de leurs auteurs respectifs.</p>
+      </section>
+
+      <section>
+        <h2><span class="qty">05</span><span>Données personnelles</span></h2>
+        <p>Ce site ne comporte aucun formulaire, ne collecte aucune donnée personnelle et ne dépose aucun cookie. Aucun outil de mesure d’audience ni de publicité n’est utilisé.</p>
+        <p>Comme tout hébergeur, OVH peut conserver des journaux techniques de connexion (adresse IP, date, page consultée) pour assurer la sécurité et le bon fonctionnement du service.</p>
+        <p>Si vous écrivez par e-mail, votre message sert uniquement à vous répondre. Conformément au RGPD, vous pouvez demander l’accès, la rectification ou la suppression de vos données à l’adresse de contact ci-dessus, et saisir la <a href="https://www.cnil.fr" rel="noopener">CNIL</a>.</p>
+      </section>
+
+      <section>
+        <h2><span class="qty">06</span><span>Responsabilité</span></h2>
+        <p>Les informations de ce site sont fournies à titre indicatif. L’éditeur ne saurait être tenu responsable des contenus des sites vers lesquels pointent des liens externes.</p>
+      </section>
+
+      <section>
+        <h2><span class="qty">07</span><span>Crédits</span></h2>
+        <p>Conception, design et développement&nbsp;: Nathan Garcia (BYCARLOS).</p>
+      </section>
+
+      <div class="rule double" aria-hidden="true"></div>
+      <div class="row upper"><span>Total</span><span>$0.00</span></div>
+      <div class="rule double" aria-hidden="true"></div>
+      <p class="center small" style="margin-top:.8em">*** Thank you for reading ***</p>
+    </article>
+  </main>
+
+<script>
+// film grain, same as the homepage
+(() => {
+  const d = Math.min(devicePixelRatio || 1, 2), n = Math.round(220 * d);
+  const c = document.createElement('canvas'); c.width = c.height = n;
+  const g = c.getContext('2d'), img = g.createImageData(n, n), px = img.data;
+  for (let i = 0; i < px.length; i += 4) { const v = Math.random() * 255; px[i] = px[i + 1] = px[i + 2] = v; px[i + 3] = 255; }
+  g.putImageData(img, 0, 0);
+  document.getElementById('grain').style.backgroundImage = `url(${c.toDataURL('image/png')})`;
+})();
+// the title spans the full width of the receipt
+(() => {
+  const t = document.querySelector('.title'), r = document.querySelector('.receipt');
+  const fit = () => {
+    t.style.fontSize = '100px';
+    const range = document.createRange(); range.selectNodeContents(t);
+    const w = range.getBoundingClientRect().width;
+    if (w) t.style.fontSize = (100 * r.clientWidth / w).toFixed(2) + 'px';
+  };
+  fit(); document.fonts.ready.then(fit); addEventListener('resize', fit);
+})();
+</script>
+</body>
+</html>
