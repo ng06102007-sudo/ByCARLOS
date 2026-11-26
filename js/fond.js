@@ -37,6 +37,9 @@ window.Fond = (() => {
   let canvasMode = /[?&]canvas\b/.test(location.search);           // ?canvas tests the fallback in any browser
   let seekMode = /[?&]seek\b/.test(location.search);               // ?seek tests the last fallback in any browser
   const isFile = location.protocol === 'file:';
+  // phones (iPhone Safari above all): few video decoders and little memory, so no clip is prepared in advance,
+  // nothing is played backwards, and a hidden clip is taken off screen entirely
+  const phone = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 820;
 
   const mute = el => { el.muted = true; el.defaultMuted = true; el.playsInline = true; };
   const clip = src => {
@@ -58,7 +61,7 @@ window.Fond = (() => {
     if (prev && prev !== el) setTimeout(() => {
       if (shown === prev) return;
       prev.classList.remove('on');
-      if (prev.tagName === 'VIDEO') prev.pause();
+      if (prev.tagName === 'VIDEO') { prev.pause(); if (phone && clips.size > 3) { const keep = new Set([shown]); clips.forEach((v, k) => { if (!keep.has(v) && v !== first && !v.classList.contains('on')) { v.removeAttribute('src'); v.load(); v.remove(); clips.delete(k); } }); } }
     }, 90);
   };
   const ended = el => new Promise(res => el.addEventListener('ended', res, { once: true }));
@@ -307,6 +310,7 @@ window.Fond = (() => {
   }
 
   async function playReverse(src, my) {
+    if (phone) return;                                                 // straight on to the next clip
     if (seekMode) { await seekClip(src, false, my, true); return; }
     const r = await Promise.race([prepareReverse(src), new Promise(res => setTimeout(() => res(null), 1200))]);
     if (my !== token) return;
@@ -336,7 +340,7 @@ window.Fond = (() => {
   return {
     play,
     source: () => shown,                                               // the layer currently on screen (video or canvas)
-    preload: list => list.forEach(src => { if (!canvasMode) clip(src); }),
+    preload: list => list.forEach(src => { if (!canvasMode && !phone) clip(src); }),
     prepareReverse,
   };
 })();
